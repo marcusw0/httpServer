@@ -9,7 +9,7 @@ import (
 	"github.com/marcusw0/httpServer/internal/server"
 )
 
-const port = 42069
+const port = 9988
 
 func main() {
     s, err := server.Serve(port)
