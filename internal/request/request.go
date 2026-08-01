@@ -13,13 +13,13 @@ type RequestLine struct {
 	HttpVersion   string
 	RequestTarget string
 	Method        string
-	Body 		  string
+	Body          string
 }
 
 type Request struct {
 	RequestLine RequestLine
 	Headers     *headers.Headers
-	Body 		string
+	Body        string
 	state       parserState
 }
 
@@ -42,7 +42,7 @@ type parserState string
 const (
 	StateInit    parserState = "init"
 	StateHeaders parserState = "headers"
-	StateBody	 parserState = "body"
+	StateBody    parserState = "body"
 	StateDone    parserState = "done"
 	StateError   parserState = "error"
 )
@@ -56,7 +56,7 @@ func newRequest() *Request {
 	return &Request{
 		state:   StateInit,
 		Headers: headers.NewHeaders(),
-		Body: "",
+		Body:    "",
 	}
 }
 
@@ -138,10 +138,10 @@ outer:
 			if done {
 				if r.hasBody() {
 					r.state = StateBody
-			} else {
-				r.state = StateDone
+				} else {
+					r.state = StateDone
+				}
 			}
-		}
 
 		case StateBody:
 			length := getInt(r.Headers, "content-length", 0)
@@ -149,7 +149,7 @@ outer:
 				panic("chunked not implemented")
 			}
 
-			remaining := min(length - len(r.Body), len(currentData))
+			remaining := min(length-len(r.Body), len(currentData))
 			r.Body += string(currentData[:remaining])
 			read += remaining
 
