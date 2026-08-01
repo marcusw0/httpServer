@@ -16,8 +16,8 @@ func isValidToken(str []byte) bool {
 			found = true
 		}
 		switch ch {
-			case '!', '#', '$', '%', '&', '\'', '*', '+', '-', '.', '^', '_', '`', '|', '~':
-				found = true
+		case '!', '#', '$', '%', '&', '\'', '*', '+', '-', '.', '^', '_', '`', '|', '~':
+			found = true
 		}
 
 		if !found {
@@ -29,6 +29,7 @@ func isValidToken(str []byte) bool {
 }
 
 var rn = []byte("\r\n")
+
 func parseHeader(fieldLine []byte) (string, string, error) {
 	parts := bytes.SplitN(fieldLine, []byte(":"), 2)
 	if len(parts) != 2 {
@@ -98,8 +99,8 @@ func (h *Headers) Parse(data []byte) (int, bool, error) {
 			read += len(rn)
 			break
 		}
-		
-		name, value, err := parseHeader(data[read:read+idx])
+
+		name, value, err := parseHeader(data[read : read+idx])
 		if err != nil {
 			return 0, false, err
 		}
